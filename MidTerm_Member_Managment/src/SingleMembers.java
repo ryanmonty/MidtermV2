@@ -28,5 +28,10 @@ public class SingleMembers extends MemberDetails {
 	            System.out.println("This member does not belong to this club");
 	        }		
 	}
+	@Override
+	protected void remove(Object memberDetails) {
+		this.clubName = null;
+		
+	}
 
 }

@@ -22,5 +22,10 @@ public class MultiMembers extends MemberDetails {
 		this.memPoints =+ 5;
 		
 	}
+	@Override
+	protected void remove(Object memberDetails) {
+		this.memPoints = 0;
+		
+	}
 
 }

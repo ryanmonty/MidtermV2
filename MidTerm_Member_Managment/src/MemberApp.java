@@ -1,10 +1,7 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 public class MemberApp {
@@ -44,7 +41,8 @@ public class MemberApp {
 					String newMemHomeClub = getUserInput("What is the name of their Home club?"
 							+ "\n1. DownTownFit\n2. FitnessThisWholeBurgerInMyMouth\n3. UpTownFit\n4. CornerTownFit",
 							scan);
-					members.add(new SingleMembers(newMemName, clubs[Integer.parseInt(newMemHomeClub) - 1].getName(), 1));
+					members.add(
+							new SingleMembers(newMemName, clubs[Integer.parseInt(newMemHomeClub) - 1].getName(), 1));
 
 				} else if (newMemType.equals("multi")) {
 					members.add(new MultiMembers(newMemName, 0, 1));
@@ -66,45 +64,52 @@ public class MemberApp {
 
 					if (member.getId() == memId) {
 						System.out.println(member.toString());
-						
-						System.out.println("Please select an option: \n1. Check Member In\n2. Current Balance\n3. Cancel Membership");
+
+						System.out.println(
+								"Please select an option: \n1. Check Member In\n2. Current Balance\n3. Cancel Membership");
+
 						int choice = scan2.nextInt();
-						
-					switch(choice) {
-					case 1:
-						
-						if(member instanceof SingleMembers) {
-							String homeClubChoice = getUserInput("What is the name of their Home club?"
-									+ "\n1. DownTownFit\n2. FitnessThisWholeBurgerInMyMouth\n3. UpTownFit\n4. CornerTownFit",
-									scan);
-							member.checkIn(clubs[Integer.parseInt(homeClubChoice) - 1]);
-							System.out.println("Welcome " + member.getName() + " to " + clubs[Integer.parseInt(homeClubChoice) - 1].getName());
+
+						switch (choice) {
+						case 1:
+
+							if (member instanceof SingleMembers) {
+								String homeClubChoice = getUserInput("What is the name of their Home club?"
+										+ "\n1. DownTownFit\n2. FitnessThisWholeBurgerInMyMouth\n3. UpTownFit\n4. CornerTownFit",
+										scan);
+								member.checkIn(clubs[Integer.parseInt(homeClubChoice) - 1]);
+								System.out.println("Welcome " + member.getName() + " to "
+										+ clubs[Integer.parseInt(homeClubChoice) - 1].getName());
+							} else {
+								member.checkIn(null);
+								System.out.println("Be sure to tell " + member.getName()
+										+ " about their 5 new membership points!");
+							}
+							break;
+						case 2:
+
+							if (member instanceof SingleMembers) {
+								int balance = (member.getMonths() * 10);
+								System.out.println(member.getName() + "'s current balance is: $" + balance);
+							} else {
+								int balance = (member.getMonths() * 15);
+								System.out.println(member.getName() + "'s current balance is: $" + balance);
+							}
+							break;
+						case 3:
+							for (int i = 0; i < members.size(); i++) {
+								
+								if ((member.getId()) == (i+1)) {
+									System.out.println("Removing " + member.getName());
+									members.remove(member);
+								
+								}
+							}
+							System.out.println(members.toString());
+							break;
 						}
-						else {
-							member.checkIn(null);
-							System.out.println("Be sure to tell " + member.getName() + " about their 5 new membership points!");
-						}
-					case 2:
-						
-						if(member instanceof SingleMembers) {
-						int balance = (member.getMonths() * 10);
-						System.out.println(member.getName() + "'s current balance is: $" + balance);
-						}
-						else {
-							int balance = (member.getMonths() * 15);
-							System.out.println(member.getName() + "'s current balance is: $" + balance);
-						}
-						
-					case 3:
-						
-						members.remove((memId-1));
-						
 					}
 				}
-				
-					
-					
-				}	
 			} else {
 				willContinue = false;
 			}
@@ -115,7 +120,8 @@ public class MemberApp {
 			} else {
 				willContinue = false;
 			}
-		}while(willContinue);scan.nextLine();System.out.println("Goodbye!");
+		} while (willContinue);
+		System.out.println("Goodbye!");
 
 	}
 

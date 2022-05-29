@@ -42,5 +42,6 @@ public abstract class MemberDetails {
 		return "Name: " + name + "\n" + "ID:" + id + "\n";
 	}
 	public abstract void checkIn(Club club);
+	protected abstract void remove(Object memberDetails);
 	
 }
