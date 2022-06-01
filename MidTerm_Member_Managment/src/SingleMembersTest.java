@@ -26,9 +26,24 @@ class SingleMembersTest {
 	}
 	//FINISH??
 	@Test
-	void testIncorrectCheckinLocation() {
+	void testIncorrectCheckInLocation() {
 		SingleMembers sm = new SingleMembers("Regina", "Correct Club", 5);
-		Club club = new Club("She doesn't even go here Club", "123 Mean Girls Street");
+		Club club = new Club("Plastics Club", "123 Mean Girls Street");
+		sm.checkIn(club);
+		
+	//	int expected = 0;
+	//	int actual = sm.getClubName().si
+		
+	}
+		
+	@Test
+	void testMemberDetails() {
+		SingleMembers sm = new SingleMembers("Regina George", "Plastics Club", 18);
+		Club club = new Club("Plastics Club", "123 Mean Girls Street");
+		sm.getName();
+		sm.getId();
+		sm.getMonths();
+	//	assertsEquals(sm.);
 		
 		
 	}
