@@ -106,6 +106,23 @@ public class MemberApp {
 							break;
 
 						case 3:
+<<<<<<< HEAD
+							Iterator<MemberDetails> it = members.iterator();
+							while (it.hasNext()) {
+								MemberDetails s = it.next();
+								
+								if (s.equals(member))
+								    it.remove();
+
+								System.out.println(members);
+								break;
+
+							}
+						}
+					}
+				}
+				
+=======
 							memDelete = member.getId() - 1;
 							System.out.println("Removing " + member.getName());
 
@@ -119,6 +136,7 @@ public class MemberApp {
 					}
 				}
 
+>>>>>>> f30f123b889e858355f998aa08dd2480a6522a99
 			} else {
 				willContinue = false;
 			}
