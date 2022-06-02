@@ -24,13 +24,5 @@ class SingleMembersTest {
 		assertEquals("Clubby McClubClub", club.getName());
 		assertEquals("123 Club Street", club.getAddress());
 	}
-	//FINISH??
-	@Test
-	void testIncorrectCheckinLocation() {
-		SingleMembers sm = new SingleMembers("Regina", "Correct Club", 5);
-		Club club = new Club("She doesn't even go here Club", "123 Mean Girls Street");
-		
-		
-	}
 
 }

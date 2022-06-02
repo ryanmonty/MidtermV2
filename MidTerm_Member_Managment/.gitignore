@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Eclipse
 .classpath
 .project
@@ -13,5 +14,12 @@ target/
 
 *.class
 /bin
+<<<<<<<< HEAD:MidTerm_Member_Managment/.gitignore
 
 /.metadata/
+========
+/.metadata/
+>>>>>>>> f30f123b889e858355f998aa08dd2480a6522a99:.gitignore
+=======
+/bin/
+>>>>>>> f30f123b889e858355f998aa08dd2480a6522a99

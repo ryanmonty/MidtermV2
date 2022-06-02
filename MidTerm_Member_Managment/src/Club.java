@@ -1,9 +1,4 @@
 
-/*A Club class that holds basic details about each fitness club, including at minimum:
-
-name, address*/
-
-
 public class Club {
 
 	private String name;
@@ -32,7 +27,7 @@ public class Club {
 	
 	@Override
 	public String toString() {
-		return "Club" + name + "address" + address;
+		return "Location: " + name + "Address: " + address;
 	}
 	
 }

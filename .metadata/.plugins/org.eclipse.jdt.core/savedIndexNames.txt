@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INDEX VERSION 1.131+C:\Users\Ryan\Desktop\MidTermV2\.metadata\.plugins\org.eclipse.jdt.core
 2951401793.index
 144048072.index
@@ -18,3 +19,23 @@ INDEX VERSION 1.131+C:\Users\Ryan\Desktop\MidTermV2\.metadata\.plugins\org.eclip
 3371957283.index
 760091825.index
 1081475299.index
+=======
+INDEX VERSION 1.131+C:\Users\Megan\Documents\Classes\JavaBootCamp\Weeks\Week10\Assessments\Project\MidtermV2\.metadata\.plugins\org.eclipse.jdt.core
+636210179.index
+1822532833.index
+2729128180.index
+4035685692.index
+1055662178.index
+2699204239.index
+3635878368.index
+4257565187.index
+144048072.index
+2197813017.index
+2250025643.index
+1865797976.index
+1304163255.index
+3373694209.index
+625797373.index
+72869065.index
+1053905028.index
+>>>>>>> f30f123b889e858355f998aa08dd2480a6522a99
