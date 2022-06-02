@@ -10,57 +10,61 @@ public class MemberApp {
 	private static ArrayList<MemberDetails> members = new ArrayList<>();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-		// switch statement:
-		// add, delete, display member info
-		Club[] clubs = { new Club("DownTownFit", "123 Downtown Street"),
-				new Club("FitnessThisWholeBurgerInMyMouth", "Foodcourt"), new Club("UpTownFit", "321 Uptown Street"),
-				new Club("CornerTownFit", "000 Cornertown Street") };
+		Club[] clubs = { new Club("Detroit Zoo", "8450 W 10 Mile Rd, Royal Oak, MI 48067"),
+				new Club("Toledo Zoo", "2 Hippo Way, Toledo, OH 43609"),
+				new Club("San Diego Zoo", "2920 Zoo Dr, San Diego, CA 92101"),
+				new Club("Bronx Zoo", "2300 Southern Blvd, Bronx, NY 10460") };
 
-		members.add(new SingleMembers("John Doe", clubs[0].getName(), 11));
-		members.add(new SingleMembers("Mary Moe", clubs[2].getName(), 8));
-		members.add(new MultiMembers("Jack Foe", 0, 6));
-		members.add(new MultiMembers("Emily Toe", 5, 5));
+		members.add(new SingleMembers("Larry Lizard", clubs[0].getName(), 11));
+		members.add(new SingleMembers("Sally Snake", clubs[2].getName(), 8));
+		members.add(new MultiMembers("Karen Kangaroo", 0, 6));
+		members.add(new MultiMembers("Emily Elephant", 5, 5));
 
 		Scanner scan = new Scanner(System.in);
-		Scanner scan2 = new Scanner(System.in);
 		boolean willContinue = false;
 		int memDelete = 0;
 
-		System.out.println("Welcome to the Member Management App!! \n ");
+		System.out.println("Welcome to the Zoo-Keeper App!\n");
 
 		do {
-			System.out.println("Please Select an option?\n1. Adding Members\n2. Member Checkin");
+			System.out.println("Please Select An Option:\n1. Create A New Member\n2. List Current Members");
 			int userChoice = scan.nextInt();
 			scan.nextLine();
 
 			if (userChoice == 1) {
-				String newMemName = getUserInput("What is the new member's name?", scan);
-				String newMemType = getUserInput("Are they choosing a single or multi membership?", scan);
+				System.out.println("Enter the new member's full name:");
+				String newMemName = scan.nextLine();
 
-				if (newMemType.equals("single")) {
-					String newMemHomeClub = getUserInput("What is the name of their Home club?"
-							+ "\n1. DownTownFit\n2. FitnessThisWholeBurgerInMyMouth\n3. UpTownFit\n4. CornerTownFit",
+				System.out.println(
+						"Choose a membership type - Select [1] to join a single location or [2] to access multiple locations:\n1. Single \n2. Multi");
+				String newMemType = scan.nextLine();
+
+				if (newMemType.equals("Single")) {
+					String newMemHomeClub = getUserInput(
+							"Which zoo does the member wish to join?\n1. Detroit Zoo\n2. Toledo Zoo\n3. San Diego Zoo\n4. Bronx Zoo",
 							scan);
 					members.add(
 							new SingleMembers(newMemName, clubs[Integer.parseInt(newMemHomeClub) - 1].getName(), 1));
+					System.out.println(members.toString());
 
-				} else if (newMemType.equals("multi")) {
+				} else if (newMemType.equals("Multi")) {
 					members.add(new MultiMembers(newMemName, 0, 1));
+
 				} else {
-					System.out.println("Please Select an appropriate option.");
+					System.out.println("Please select an appropriate option.");
 				}
+
 			} else if (userChoice == 2) {
+				System.out.println("Please select a member by ID number");
+
 				HashMap<Integer, String> memberMap = convertArrayListToHashMap(members);
 
 				// printing the HashMap
 				for (Entry<Integer, String> entry : memberMap.entrySet()) {
-
 					System.out.println(entry.getKey() + ". " + entry.getValue());
 				}
-				System.out.println("Please select a member by ID number");
-				int memId = scan2.nextInt();
+				int memId = scan.nextInt();
 
 				for (MemberDetails member : members) {
 
@@ -70,26 +74,29 @@ public class MemberApp {
 						System.out.println(
 								"Please select an option: \n1. Check Member In\n2. Current Balance\n3. Cancel Membership");
 
-						int choice = scan2.nextInt();
+						int choice = scan.nextInt();
 
 						switch (choice) {
 						case 1:
-
 							if (member instanceof SingleMembers) {
-								String homeClubChoice = getUserInput("What is the name of their Home club?"
-										+ "\n1. DownTownFit\n2. FitnessThisWholeBurgerInMyMouth\n3. UpTownFit\n4. CornerTownFit",
+								String homeClubChoice = getUserInput(
+										"What zoo is the member checking into?"
+												+ "\n1. Detroit Zoo\n2. Toledo Zoo\n3. San Diego Zoo\n4. Bronx Zoo",
 										scan);
+
+								scan.next();
 								member.checkIn(clubs[Integer.parseInt(homeClubChoice) - 1]);
 								System.out.println("Welcome " + member.getName() + " to "
 										+ clubs[Integer.parseInt(homeClubChoice) - 1].getName());
+
 							} else {
 								member.checkIn(null);
 								System.out.println("Be sure to tell " + member.getName()
 										+ " about their 5 new membership points!");
 							}
 							break;
-						case 2:
 
+						case 2:
 							if (member instanceof SingleMembers) {
 								int balance = (member.getMonths() * 10);
 								System.out.println(member.getName() + "'s current balance is: $" + balance);
@@ -98,43 +105,25 @@ public class MemberApp {
 								System.out.println(member.getName() + "'s current balance is: $" + balance);
 							}
 							break;
+
 						case 3:
 							memDelete = member.getId() - 1;
 							System.out.println("Removing " + member.getName());
-							
-//							Iterator<MemberDetails> itr = members.iterator();
-//
-//							while (itr.hasNext()) {
-//							    MemberDetails number = itr.next();
-//
-//							       if (number == member ) {
-//							       itr.remove();
-//							    }
-//							       System.out.println(members);
-//							}
-//							
-							
-//							for (int i = 0; i < members.size(); i++) {
-//								
-//								if ((member.getId()) == (i+1)) {
-//									System.out.println("Removing " + member.getName());
-//									members.remove(member);
-//								
-//								}
-//							}
-							//System.out.println(members.toString());
+
+							members.remove(memDelete);// remove requested member
+							memDelete = 0; // clear requested member delete
 							break;
+
+						default:
+							System.out.println("Invalid input");
 						}
 					}
 				}
+
 			} else {
 				willContinue = false;
 			}
-			
-			members.remove(memDelete);//remove requested member
-			memDelete = 0; //clear requested member delete
-			
-			
+
 			System.out.println("Continue? (y/n)");
 			String userWantsToContinue = scan.nextLine();
 			if (userWantsToContinue.toLowerCase().startsWith("y")) {
@@ -153,11 +142,9 @@ public class MemberApp {
 	}
 
 	private static LinkedHashMap<Integer, String> convertArrayListToHashMap(ArrayList<MemberDetails> members) {
-
 		LinkedHashMap<Integer, String> linkedHashMap = new LinkedHashMap<>();
 
 		for (MemberDetails member : members) {
-
 			linkedHashMap.put(members.indexOf(member) + 1, member.getName());
 		}
 

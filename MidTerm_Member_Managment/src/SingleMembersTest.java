@@ -24,28 +24,5 @@ class SingleMembersTest {
 		assertEquals("Clubby McClubClub", club.getName());
 		assertEquals("123 Club Street", club.getAddress());
 	}
-	//FINISH??
-	@Test
-	void testIncorrectCheckInLocation() {
-		SingleMembers sm = new SingleMembers("Regina", "Correct Club", 5);
-		Club club = new Club("Plastics Club", "123 Mean Girls Street");
-		sm.checkIn(club);
-		
-	//	int expected = 0;
-	//	int actual = sm.getClubName().si
-		
-	}
-		
-	@Test
-	void testMemberDetails() {
-		SingleMembers sm = new SingleMembers("Regina George", "Plastics Club", 18);
-		Club club = new Club("Plastics Club", "123 Mean Girls Street");
-		sm.getName();
-		sm.getId();
-		sm.getMonths();
-	//	assertsEquals(sm.);
-		
-		
-	}
 
 }
