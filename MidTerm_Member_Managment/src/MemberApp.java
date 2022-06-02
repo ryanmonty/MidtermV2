@@ -40,7 +40,7 @@ public class MemberApp {
 						"Choose a membership type - Select [1] to join a single location or [2] to access multiple locations:\n1. Single \n2. Multi");
 				String newMemType = scan.nextLine();
 
-				if (newMemType.equals("Single")) {
+				if (newMemType.equals("1")) {
 					String newMemHomeClub = getUserInput(
 							"Which zoo does the member wish to join?\n1. Detroit Zoo\n2. Toledo Zoo\n3. San Diego Zoo\n4. Bronx Zoo",
 							scan);
@@ -48,7 +48,7 @@ public class MemberApp {
 							new SingleMembers(newMemName, clubs[Integer.parseInt(newMemHomeClub) - 1].getName(), 1));
 					System.out.println(members.toString());
 
-				} else if (newMemType.equals("Multi")) {
+				} else if (newMemType.equals("2")) {
 					members.add(new MultiMembers(newMemName, 0, 1));
 
 				} else {
@@ -84,7 +84,6 @@ public class MemberApp {
 												+ "\n1. Detroit Zoo\n2. Toledo Zoo\n3. San Diego Zoo\n4. Bronx Zoo",
 										scan);
 
-								scan.next();
 								member.checkIn(clubs[Integer.parseInt(homeClubChoice) - 1]);
 								System.out.println("Welcome " + member.getName() + " to "
 										+ clubs[Integer.parseInt(homeClubChoice) - 1].getName());
