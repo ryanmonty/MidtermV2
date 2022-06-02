@@ -39,7 +39,7 @@ public abstract class MemberDetails {
 	
 	@Override
 	public String toString() {
-		return "Name: " + name + "\n" + "ID:" + id + "\n";
+		return " Name: " + name + " " + "ID:" + id + "\n";
 	}
 	public abstract void checkIn(Club club);
 	protected abstract void remove(Object memberDetails);

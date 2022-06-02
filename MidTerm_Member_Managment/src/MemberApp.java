@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
@@ -25,6 +26,7 @@ public class MemberApp {
 		Scanner scan = new Scanner(System.in);
 		Scanner scan2 = new Scanner(System.in);
 		boolean willContinue = false;
+		int memDelete = 0;
 
 		System.out.println("Welcome to the Member Management App!! \n ");
 
@@ -97,15 +99,30 @@ public class MemberApp {
 							}
 							break;
 						case 3:
-							for (int i = 0; i < members.size(); i++) {
-								
-								if ((member.getId()) == (i+1)) {
-									System.out.println("Removing " + member.getName());
-									members.remove(member);
-								
-								}
-							}
-							System.out.println(members.toString());
+							memDelete = member.getId() - 1;
+							System.out.println("Removing " + member.getName());
+							
+//							Iterator<MemberDetails> itr = members.iterator();
+//
+//							while (itr.hasNext()) {
+//							    MemberDetails number = itr.next();
+//
+//							       if (number == member ) {
+//							       itr.remove();
+//							    }
+//							       System.out.println(members);
+//							}
+//							
+							
+//							for (int i = 0; i < members.size(); i++) {
+//								
+//								if ((member.getId()) == (i+1)) {
+//									System.out.println("Removing " + member.getName());
+//									members.remove(member);
+//								
+//								}
+//							}
+							//System.out.println(members.toString());
 							break;
 						}
 					}
@@ -113,6 +130,11 @@ public class MemberApp {
 			} else {
 				willContinue = false;
 			}
+			
+			members.remove(memDelete);//remove requested member
+			memDelete = 0; //clear requested member delete
+			
+			
 			System.out.println("Continue? (y/n)");
 			String userWantsToContinue = scan.nextLine();
 			if (userWantsToContinue.toLowerCase().startsWith("y")) {
@@ -136,7 +158,7 @@ public class MemberApp {
 
 		for (MemberDetails member : members) {
 
-			linkedHashMap.put(member.getId(), member.getName());
+			linkedHashMap.put(members.indexOf(member) + 1, member.getName());
 		}
 
 		return linkedHashMap;
