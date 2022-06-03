@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
@@ -12,9 +11,9 @@ public class MemberApp {
 	public static void main(String[] args) {
 
 		Club[] clubs = { new Club("Detroit Zoo", "8450 W 10 Mile Rd, Royal Oak, MI 48067"),
-				new Club("Toledo Zoo", "2 Hippo Way, Toledo, OH 43609"),
-				new Club("San Diego Zoo", "2920 Zoo Dr, San Diego, CA 92101"),
-				new Club("Bronx Zoo", "2300 Southern Blvd, Bronx, NY 10460") };
+				new Club("Belle Isle", "3 Inselruhe Ave, Detroit, MI 48207"),
+				new Club("Georgia Aquarium", "225 Baker St NW, Atlanta, GA 30313"),
+				new Club("Stage Nature Center", "6685 Coolidge Hwy, Troy, MI 48098") };
 
 		members.add(new SingleMembers("Larry Lizard", clubs[0].getName(), 11));
 		members.add(new SingleMembers("Sally Snake", clubs[2].getName(), 8));
@@ -22,12 +21,12 @@ public class MemberApp {
 		members.add(new MultiMembers("Emily Elephant", 5, 5));
 
 		Scanner scan = new Scanner(System.in);
-		boolean willContinue = false;
-		int memDelete = 0;
+		boolean willContinue = true;
+		Integer IntMemDelete = 10;
 
 		System.out.println("Welcome to the Zoo-Keeper App!\n");
 
-		do {
+		while (willContinue) {
 			System.out.println("Please Select An Option:\n1. Create A New Member\n2. List Current Members");
 			int userChoice = scan.nextInt();
 			scan.nextLine();
@@ -46,7 +45,6 @@ public class MemberApp {
 							scan);
 					members.add(
 							new SingleMembers(newMemName, clubs[Integer.parseInt(newMemHomeClub) - 1].getName(), 1));
-					System.out.println(members.toString());
 
 				} else if (newMemType.equals("2")) {
 					members.add(new MultiMembers(newMemName, 0, 1));
@@ -54,6 +52,7 @@ public class MemberApp {
 				} else {
 					System.out.println("Please select an appropriate option.");
 				}
+				System.out.println("person is now joined to zoo");
 
 			} else if (userChoice == 2) {
 				System.out.println("Please select a member by ID number");
@@ -78,15 +77,16 @@ public class MemberApp {
 
 						switch (choice) {
 						case 1:
+							String homeClubChoice = getUserInput("What zoo is the member checking into?"
+									+ "\n1. Detroit Zoo\n2. Toledo Zoo\n3. San Diego Zoo\n4. Bronx Zoo", scan);
 							if (member instanceof SingleMembers) {
-								String homeClubChoice = getUserInput(
-										"What zoo is the member checking into?"
-												+ "\n1. Detroit Zoo\n2. Toledo Zoo\n3. San Diego Zoo\n4. Bronx Zoo",
-										scan);
+								try {
 
-								member.checkIn(clubs[Integer.parseInt(homeClubChoice) - 1]);
-								System.out.println("Welcome " + member.getName() + " to "
-										+ clubs[Integer.parseInt(homeClubChoice) - 1].getName());
+									int clubChoice = scan.nextInt();
+									member.checkIn(clubs[clubChoice - 1]);
+								} catch (ArrayIndexOutOfBoundsException e) {
+									System.out.println("Please select from one of the existing clubs.");
+								}
 
 							} else {
 								member.checkIn(null);
@@ -99,6 +99,7 @@ public class MemberApp {
 							if (member instanceof SingleMembers) {
 								int balance = (member.getMonths() * 10);
 								System.out.println(member.getName() + "'s current balance is: $" + balance);
+							
 							} else {
 								int balance = (member.getMonths() * 15);
 								System.out.println(member.getName() + "'s current balance is: $" + balance);
@@ -106,28 +107,11 @@ public class MemberApp {
 							break;
 
 						case 3:
-<<<<<<< HEAD
-							Iterator<MemberDetails> it = members.iterator();
-							while (it.hasNext()) {
-								MemberDetails s = it.next();
-								
-								if (s.equals(member))
-								    it.remove();
 
-								System.out.println(members);
-								break;
 
-							}
-						}
-					}
-				}
-				
-=======
-							memDelete = member.getId() - 1;
+							IntMemDelete = member.getId() - 1;
 							System.out.println("Removing " + member.getName());
-
-							members.remove(memDelete);// remove requested member
-							memDelete = 0; // clear requested member delete
+							members.remove(Integer.parseInt(IntMemDelete.toString()));// remove requested member
 							break;
 
 						default:
@@ -136,20 +120,23 @@ public class MemberApp {
 					}
 				}
 
->>>>>>> f30f123b889e858355f998aa08dd2480a6522a99
+
 			} else {
 				willContinue = false;
 			}
 
 			System.out.println("Continue? (y/n)");
-			String userWantsToContinue = scan.nextLine();
-			if (userWantsToContinue.toLowerCase().startsWith("y")) {
+			String userWantsToContinue = scan.next();
+
+			if (userWantsToContinue.equalsIgnoreCase("y")) {
 				willContinue = true;
+
 			} else {
 				willContinue = false;
+				System.out.println("Goodbye!");
 			}
-		} while (willContinue);
-		System.out.println("Goodbye!");
+
+		}
 
 	}
 
@@ -164,7 +151,6 @@ public class MemberApp {
 		for (MemberDetails member : members) {
 			linkedHashMap.put(members.indexOf(member) + 1, member.getName());
 		}
-
 		return linkedHashMap;
 	}
 

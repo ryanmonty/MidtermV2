@@ -18,11 +18,12 @@ public class SingleMembers extends MemberDetails {
 
 	@Override
 	public void checkIn(Club club) {
-		try {
-			this.getClubName().compareTo(club.getName());
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("This member does not belong to this club");
+		int match = this.getClubName().compareTo(club.getName());
+
+		if (match == 0) {
+			System.out.println("Welcome, " + getName() + ", to the " + clubName);
+		} else {
+			System.out.println("Sorry, " + getName() + " doesn't belong to that zoo.");
 		}
 	}
 
