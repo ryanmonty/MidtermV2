@@ -43,5 +43,6 @@ public abstract class MemberDetails {
 	}
 	public abstract void checkIn(Club club);
 	protected abstract void remove(Object memberDetails);
+	public abstract void display();
 	
 }

@@ -19,19 +19,39 @@ public class SingleMembers extends MemberDetails {
 		this.clubName = clubName;
 		
 	}
+	
+	//implementation of abstract method
 	@Override
 	public void checkIn(Club club) {
-		 try {
-	            this.getClubName().compareTo(club.getName());
-	        } catch (Exception e) {
+		 
+		try {
+	            if (this.getClubName().compareTo(club.getName()) == 0){
+	            	System.out.println("Welcome" + " to the "
+							+ club.getName() + "!");
+	            }
+	            else {
+	            	System.out.println("This furry friend does not belong to this club :)");
+	            }
+	            
+	        }
+		catch (Exception e) {
 	            e.printStackTrace();
-	            System.out.println("This member does not belong to this club");
+	            System.out.println("This furry friend does not belong to this club :)");
 	        }		
 	}
 	@Override
 	protected void remove(Object memberDetails) {
 		this.clubName = null;
 		
+	}
+	@Override
+	public void display() {
+		System.out.println("Name:" + this.getName()
+						+  "\nID: " + this.getId()
+						+  "\nHome Zoo: " + this.getClubName()
+						+  "\nCurrent Months at Zoo: " + this.getMonths()
+						+  "\nMembership Type: Single Zoo Access");
+			
 	}
 
 }

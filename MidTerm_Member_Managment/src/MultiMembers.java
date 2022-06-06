@@ -19,13 +19,23 @@ public class MultiMembers extends MemberDetails {
 	
 	@Override
 	public void checkIn(Club club) {
-		this.memPoints =+ 5;
+		this.memPoints = this.memPoints + 5;
+		System.out.println("\nCurrent Membership Points Balance: " + this.memPoints);
 		
 	}
 	@Override
 	protected void remove(Object memberDetails) {
 		this.memPoints = 0;
 		
+	}
+	@Override
+	public void display() {
+		System.out.println("Name:" + this.getName()
+						+  "\nID: " + this.getId()
+						+  "\nMemberShip Points: " + this.getMemPoints()
+						+  "\nCurrent Months at Zoo: " + this.getMonths()
+						+  "\nMembership Type: Multi Zoo Access");
+			
 	}
 
 }

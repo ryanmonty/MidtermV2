@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import java.util.Date;
 
 public class MemberApp {
 
@@ -14,126 +15,112 @@ public class MemberApp {
 
 		// switch statement:
 		// add, delete, display member info
-		Club[] clubs = { new Club("DownTownFit", "123 Downtown Street"),
-				new Club("FitnessThisWholeBurgerInMyMouth", "Foodcourt"), new Club("UpTownFit", "321 Uptown Street"),
-				new Club("CornerTownFit", "000 Cornertown Street") };
+		Club[] clubs = { new Club("Detroit Zoo", "8450 W 10 Mile Rd, Royal Oak, MI 48067"),
+				new Club("Belle Isle", "3 Inselruhe Ave, Detroit, MI 48207"),
+				new Club("Georgia Aquarium", "225 Baker St NW, Atlanta, GA 30313"),
+				new Club("Stage Nature Center", "6685 Coolidge Hwy, Troy, MI 48098") };
 
-		members.add(new SingleMembers("John Doe", clubs[0].getName(), 11));
-		members.add(new SingleMembers("Mary Moe", clubs[2].getName(), 8));
-		members.add(new MultiMembers("Jack Foe", 0, 6));
-		members.add(new MultiMembers("Emily Toe", 5, 5));
+		members.add(new SingleMembers("Larry Lizard", clubs[0].getName(), 11));
+		members.add(new SingleMembers("Sally Snake", clubs[2].getName(), 8));
+		members.add(new MultiMembers("Karen Kangaroo", 0, 6));
+		members.add(new MultiMembers("Emily Elephant", 5, 5));
 
 		Scanner scan = new Scanner(System.in);
 		Scanner scan2 = new Scanner(System.in);
-		boolean willContinue = false;
-		int memDelete = 0;
+		boolean willContinue;
 
-		System.out.println("Welcome to the Member Management App!! \n ");
+
+		System.out.println("Welcome to the Zoo-Keeper App!\\n ");
 
 		do {
-			System.out.println("Please Select an option?\n1. Adding Members\n2. Member Checkin");
+			System.out.println("Please Select An Option:\n1. Create A New Member\n2. List Current Members");
 			int userChoice = scan.nextInt();
 			scan.nextLine();
 
 			if (userChoice == 1) {
-				String newMemName = getUserInput("What is the new member's name?", scan);
-				String newMemType = getUserInput("Are they choosing a single or multi membership?", scan);
+				String newMemName = getUserInput("Enter the new member's full name:", scan);
+				String newMemType = getUserInput("Choose a membership type - Select [1] to join a single location or [2] to access multiple locations:\\n1. Single \\n2. Multi", scan);
 
-				if (newMemType.equals("single")) {
-					String newMemHomeClub = getUserInput("What is the name of their Home club?"
-							+ "\n1. DownTownFit\n2. FitnessThisWholeBurgerInMyMouth\n3. UpTownFit\n4. CornerTownFit",
-							scan);
-					members.add(
-							new SingleMembers(newMemName, clubs[Integer.parseInt(newMemHomeClub) - 1].getName(), 1));
+				if (newMemType.equals("1")) { 
+					String newMemHomeClub = getUserInput("Which zoo does the member wish to join?\n1. Detroit Zoo\n2. Toledo Zoo\n3. San Diego Zoo\n4. Bronx Zoo",scan);
+					members.add(new SingleMembers(newMemName, clubs[Integer.parseInt(newMemHomeClub) - 1].getName(), 1));
+					discount(members.get(members.size()-1));//for the last member added if the hour is odd give discount
 
-				} else if (newMemType.equals("multi")) {
+				} else if (newMemType.equals("2")) {
 					members.add(new MultiMembers(newMemName, 0, 1));
+					discount(members.get(members.size()-1));//for the last member added if the hour is odd give discount
 				} else {
 					System.out.println("Please Select an appropriate option.");
+					
 				}
 			} else if (userChoice == 2) {
+				System.out.println("Please select a member by ID number");
+				
 				HashMap<Integer, String> memberMap = convertArrayListToHashMap(members);
-
 				// printing the HashMap
 				for (Entry<Integer, String> entry : memberMap.entrySet()) {
 
 					System.out.println(entry.getKey() + ". " + entry.getValue());
 				}
-				System.out.println("Please select a member by ID number");
-				int memId = scan2.nextInt();
+				int memId = scan2.nextInt();// Member ID from user
 
-				for (MemberDetails member : members) {
+				for (int selectedMember = 0; selectedMember < members.size();selectedMember++) {
 
-					if (member.getId() == memId) {
-						System.out.println(member.toString());
+					if (members.get(selectedMember).getId() == memId) {
+						System.out.println(members.get(selectedMember).toString());
 
 						System.out.println(
-								"Please select an option: \n1. Check Member In\n2. Current Balance\n3. Cancel Membership");
+								"Please select an option: \n1. Check Member In\n2. Current Balance\n3. Cancel Membership\n4. Display Member Information");
 
 						int choice = scan2.nextInt();
 
 						switch (choice) {
-						case 1:
+						case 1://1. Check Member In
 
-							if (member instanceof SingleMembers) {
-								String homeClubChoice = getUserInput("What is the name of their Home club?"
-										+ "\n1. DownTownFit\n2. FitnessThisWholeBurgerInMyMouth\n3. UpTownFit\n4. CornerTownFit",
-										scan);
-								member.checkIn(clubs[Integer.parseInt(homeClubChoice) - 1]);
-								System.out.println("Welcome " + member.getName() + " to "
-										+ clubs[Integer.parseInt(homeClubChoice) - 1].getName());
-							} else {
-								member.checkIn(null);
-								System.out.println("Be sure to tell " + member.getName()
+							if (members.get(selectedMember) instanceof SingleMembers) {
+								System.out.println("What zoo is the member checking into?\"\r\n"
+										+ "\n1. Detroit Zoo\n2. Toledo Zoo\n3. San Diego Zoo\n4. Bronx Zoo");
+							int homeClubChoice = scan2.nextInt();//Second scanner to allow for program to flow and ask Contiune
+								
+								members.get(selectedMember).checkIn(clubs[homeClubChoice - 1]);
+								
+							}  
+							else if (members.get(selectedMember) instanceof MultiMembers){
+								System.out.println("Be sure to tell " + members.get(selectedMember).getName()
 										+ " about their 5 new membership points!");
+								members.get(selectedMember).checkIn(null);
 							}
 							break;
-						case 2:
+						case 2://2. Current Bill of Fees for 
 
-							if (member instanceof SingleMembers) {
-								int balance = (member.getMonths() * 10);
-								System.out.println(member.getName() + "'s current balance is: $" + balance);
-							} else {
-								int balance = (member.getMonths() * 15);
-								System.out.println(member.getName() + "'s current balance is: $" + balance);
+							if (members.get(selectedMember) instanceof SingleMembers) {
+								int balance = (members.get(selectedMember).getMonths() * 10);
+								System.out.println(members.get(selectedMember).getName() + "'s current balance is: $" + balance);
+							}  
+							else if (members.get(selectedMember) instanceof MultiMembers) {
+								int balance = (members.get(selectedMember).getMonths() * 15);
+								System.out.println(members.get(selectedMember).getName() + "'s current balance is: $" + balance);
 							}
 							break;
-						case 3:
-							memDelete = member.getId() - 1;
-							System.out.println("Removing " + member.getName());
+						case 3://3. Cancel Membership
+							System.out.println("Removing " + members.get(selectedMember).getName());						
+							members.remove(selectedMember);
 							
-//							Iterator<MemberDetails> itr = members.iterator();
-//
-//							while (itr.hasNext()) {
-//							    MemberDetails number = itr.next();
-//
-//							       if (number == member ) {
-//							       itr.remove();
-//							    }
-//							       System.out.println(members);
-//							}
-//							
-							
-//							for (int i = 0; i < members.size(); i++) {
-//								
-//								if ((member.getId()) == (i+1)) {
-//									System.out.println("Removing " + member.getName());
-//									members.remove(member);
-//								
-//								}
-//							}
-							//System.out.println(members.toString());
 							break;
+						case 4://4. Display Member Information
+							System.out.println(members.get(selectedMember).toString());	
+							System.out.println("Months at the Zoo:" + members.get(selectedMember).getMonths());	
+							members.get(selectedMember).display();				
+							
+							break;
+						
+							}
 						}
 					}
-				}
+				
 			} else {
-				willContinue = false;
-			}
-			
-			members.remove(memDelete);//remove requested member
-			memDelete = 0; //clear requested member delete
-			
+				System.out.println("Please select 1 or 2");
+			}	
 			
 			System.out.println("Continue? (y/n)");
 			String userWantsToContinue = scan.nextLine();
@@ -143,7 +130,7 @@ public class MemberApp {
 				willContinue = false;
 			}
 		} while (willContinue);
-		System.out.println("Goodbye!");
+		//System.out.println("Goodbye!");
 
 	}
 
@@ -158,10 +145,22 @@ public class MemberApp {
 
 		for (MemberDetails member : members) {
 
-			linkedHashMap.put(members.indexOf(member) + 1, member.getName());
+			linkedHashMap.put(member.getId(), member.getName());
 		}
 
 		return linkedHashMap;
 	}
+	private static void discount(MemberDetails member) {
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		if (hour%2 == 0) {
+			System.out.println("Prime time to Join!!! New animals who join when the hour" 
+		+ "\nof the day is even recive extra treats!");
+		}
+	
+	}
+
 
 }
