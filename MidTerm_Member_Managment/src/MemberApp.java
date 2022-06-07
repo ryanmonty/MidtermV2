@@ -30,7 +30,7 @@ public class MemberApp {
 		boolean willContinue;
 
 
-		System.out.println("Welcome to the Zoo-Keeper App!\\n ");
+		System.out.println("Welcome to the Zoo-Keeper App!\n ");
 
 		do {
 			System.out.println("Please Select An Option:\n1. Create A New Member\n2. List Current Members");
@@ -39,10 +39,13 @@ public class MemberApp {
 
 			if (userChoice == 1) {
 				String newMemName = getUserInput("Enter the new member's full name:", scan);
-				String newMemType = getUserInput("Choose a membership type - Select [1] to join a single location or [2] to access multiple locations:\\n1. Single \\n2. Multi", scan);
+				String newMemType = getUserInput("Choose a membership type - Select [1] to join a single location or [2] to access multiple locations:", scan);
 
 				if (newMemType.equals("1")) { 
-					String newMemHomeClub = getUserInput("Which zoo does the member wish to join?\n1. Detroit Zoo\n2. Toledo Zoo\n3. San Diego Zoo\n4. Bronx Zoo",scan);
+					String newMemHomeClub = getUserInput("Which park does the member wish to join?\n1. Detroit Zoo 8450 W 10 Mile Rd, Royal Oak, MI 48067" 
+				+ "\n2. Belle Isle 3 Inselruhe Ave, Detroit, MI 48207"
+				+ "\n3. Georgia Aquarium 225 Baker St NW, Atlanta, GA 30313"
+				+ "\n4. Stage Nature Center 6685 Coolidge Hwy, Troy, MI 48098",scan);
 					members.add(new SingleMembers(newMemName, clubs[Integer.parseInt(newMemHomeClub) - 1].getName(), 1));
 					discount(members.get(members.size()-1));//for the last member added if the hour is odd give discount
 
@@ -78,8 +81,11 @@ public class MemberApp {
 						case 1://1. Check Member In
 
 							if (members.get(selectedMember) instanceof SingleMembers) {
-								System.out.println("What zoo is the member checking into?\"\r\n"
-										+ "\n1. Detroit Zoo\n2. Toledo Zoo\n3. San Diego Zoo\n4. Bronx Zoo");
+								System.out.println("What zoo is the member checking into?\n"
+										+ "\n1. Detroit Zoo 8450 W 10 Mile Rd, Royal Oak, MI 48067"
+													+ "\n2. Belle Isle 3 Inselruhe Ave, Detroit, MI 48207"
+													+ "\n3. Georgia Aquarium 225 Baker St NW, Atlanta, GA 30313"
+													+ "\n4. Stage Nature Center 6685 Coolidge Hwy, Troy, MI 48098");
 							int homeClubChoice = scan2.nextInt();//Second scanner to allow for program to flow and ask Contiune
 								
 								members.get(selectedMember).checkIn(clubs[homeClubChoice - 1]);
@@ -109,7 +115,7 @@ public class MemberApp {
 							break;
 						case 4://4. Display Member Information
 							System.out.println(members.get(selectedMember).toString());	
-							System.out.println("Months at the Zoo:" + members.get(selectedMember).getMonths());	
+							System.out.println("Months with the park:" + members.get(selectedMember).getMonths());	
 							members.get(selectedMember).display();				
 							
 							break;
@@ -156,8 +162,11 @@ public class MemberApp {
 		cal.setTime(date);
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
 		if (hour%2 == 0) {
-			System.out.println("Prime time to Join!!! New animals who join when the hour" 
-		+ "\nof the day is even recive extra treats!");
+			System.out.println("Prime time to Join!!! New members who join when the hour" 
+		+ "\nof the day is even receive their first month free!");
+		} else {
+			System.out.println("Prime time to Join!!! New members who join when the hour" 
+					+ "\nof the day is odd receive pizza!");
 		}
 	
 	}

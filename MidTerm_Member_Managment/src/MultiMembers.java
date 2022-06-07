@@ -33,8 +33,8 @@ public class MultiMembers extends MemberDetails {
 		System.out.println("Name:" + this.getName()
 						+  "\nID: " + this.getId()
 						+  "\nMemberShip Points: " + this.getMemPoints()
-						+  "\nCurrent Months at Zoo: " + this.getMonths()
-						+  "\nMembership Type: Multi Zoo Access");
+						+  "\nCurrent Months with the park: " + this.getMonths()
+						+  "\nMembership Type: Multi Park Access");
 			
 	}
 

@@ -36,7 +36,7 @@ public class SingleMembers extends MemberDetails {
 	        }
 		catch (Exception e) {
 	            e.printStackTrace();
-	            System.out.println("This furry friend does not belong to this club :)");
+	            System.out.println("Sorry, this member doesn't belong to that park.");
 	        }		
 	}
 	@Override
@@ -49,8 +49,8 @@ public class SingleMembers extends MemberDetails {
 		System.out.println("Name:" + this.getName()
 						+  "\nID: " + this.getId()
 						+  "\nHome Zoo: " + this.getClubName()
-						+  "\nCurrent Months at Zoo: " + this.getMonths()
-						+  "\nMembership Type: Single Zoo Access");
+						+  "\nCurrent Months with the park: " + this.getMonths()
+						+  "\nMembership Type: Single park Access");
 			
 	}
 
