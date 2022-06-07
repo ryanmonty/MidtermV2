@@ -24,6 +24,10 @@ class SingleMembersTest {
 		assertEquals("Clubby McClubClub", club.getName());
 		assertEquals("123 Club Street", club.getAddress());
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 2c52b07019e49ab70e181f7730c499d2471ddac0
 	@Test
 	void testSingleCheckIn() {
 		Club club = new Club("Clubby McClubClub", "123 Club Street");

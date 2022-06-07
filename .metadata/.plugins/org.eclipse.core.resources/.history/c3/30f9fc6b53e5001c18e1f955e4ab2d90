@@ -1,0 +1,41 @@
+
+public class SingleMembers extends MemberDetails {
+	private String clubName;
+	
+	
+	public String getClubName() {
+		return clubName;
+	}
+	public void setClubName(String clubName) {
+		this.clubName = clubName;
+	}
+	
+	
+	
+	//default constructor
+	
+	public SingleMembers(String name, String clubName, int months) {
+		super(name, months);
+		this.clubName = clubName;
+		
+	}
+	@Override
+	public void checkIn(Club club) {
+		 
+		try {
+	            if (this.getClubName().compareTo(club.getName()) == 0){
+	            	System.out.println("Welcome " + this.getName() + " to the "
+							+ club.getName());
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            System.out.println("This furry friend does not belong to this club!");
+	        }		
+	}
+	@Override
+	protected void remove(Object memberDetails) {
+		this.clubName = null;
+		
+	}
+
+}
